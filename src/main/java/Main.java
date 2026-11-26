@@ -1,12 +1,44 @@
-import zero.ui.Label;
-import zero.App;
 
-public class Main extends App {
-    @Override public void settings() { padding(20); }
+import zero.GameApp;
+import zero.Color;
 
-    public void setup() {
-        var greeting = new Label("Hello, world!");
-        show(greeting);
+public class Main extends GameApp
+{
+    private Moon moon;
+
+    @Override public void settings()
+    {
+        title("Moon Rising Game, Click the Moon");
+        size(420, 240);
+        padding(20);
     }
-    public static void main(String[] args) { launch(args); }
+
+    @Override public void setup()
+    {
+        moon = new Moon(40, 180);
+    }
+
+    @Override public void update(double seconds)
+    {
+        if (mousePressed())
+        {
+            if (moon.isClicked(mouseX(), mouseY()))
+            {
+                moon.fly(20, height());
+            }
+        }
+    }
+
+    @Override public void draw()
+    {
+        background(Color.rgb(35, 33, 33));
+        moon.draw(this);
+    }
+
+    
+
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
 }
